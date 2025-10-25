@@ -6,7 +6,7 @@
 # set-stretch-wallpaper.ps1
 Param()
 
-$picUrl  = "https://i.ibb.co/93nW3z37/IMG-5247-min.jpg"
+$picUrl  = "https://i.ibb.co/QRbMGHx/alienmoment-background-1.jpg"
 $picPath = Join-Path $env:TEMP "public_pic.jpg"
 
 # download (simple)
