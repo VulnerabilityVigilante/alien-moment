@@ -10,7 +10,12 @@ Microsoft just released their final update for Windows 10 this month (KB5066791)
 ## What it does
 Provides a persistent access vector after establishing initial access. It establishes a reverse shell on a Kali Linux machine with meterpreter, forces the victim to have a specific desktop, and creates three administrative accounts on the workstation.
 ## How we built it
-We utilized a GitHub repository that contains all of the files used within the project. A PowerShell script contained within a .bat file and the meterpreter payload.
+We first created a PowerShell script that could accomplish the features we wanted:
+  - Pull and force a custom wallpaper
+  - Pull the malicious executable containing the reverse shell from this repo and execute it
+  - Modify registry keys to make IT/cyber tasks easier (like disabling UAC for PowerShell admin) but are awful for victim machines
+
+Then, we created a .bat file to write the PowerShell script into %ProgramData% and establish persistence via Task Scheduler.
 ## Challenges we ran into
 We wanted to create more features on the attacker side, including custom desktops for each new administrator account . There was also a push to make the exploit an initial access vector through steganography, however, everything we tried was not very fruitful. Whenever we would merge the script as either a .bat or .ps1 file, even changing the .ps1 to a .exe, the code itself would corrupt and we were unable to package it in a .png. That was when we decided to change our exploit to a persistent access technique.
 As for our custom desktops, we had spent a large amount of time on this throughout the night to implement it. We ran into so many issues as our idea was to have profiles created to our newly created admin accounts before they were booted up for the first time. This was the main hurdle as even just getting a wallpaper was giving issues for all users. We tried setting up a scheduled task for the users on first logon and then self delete, but our efforts were killed by bugs and Windows achitectural issues.
